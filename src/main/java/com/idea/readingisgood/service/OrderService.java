@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
@@ -25,6 +26,7 @@ import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;
 import com.idea.readingisgood.validator.SavingItemIdCheck;
 
+@Validated
 @Service
 public class OrderService extends BaseService<Order, OrderDTO> {
     private final OrderMapper orderMapper;

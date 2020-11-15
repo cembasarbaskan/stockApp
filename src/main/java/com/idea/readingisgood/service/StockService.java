@@ -52,7 +52,7 @@ public class StockService extends BaseService<Stock, StockDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> save(StockDTO dto) {
-        Stock stock = stockRepository.findByBookId(dto.getBook().getId());
+        Stock stock = stockRepository.findByBookId(dto.getBookId());
         if (stock != null) {
             throw new EntityExistsException("Same stock exist");
         }

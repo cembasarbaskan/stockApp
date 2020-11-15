@@ -150,13 +150,7 @@ public class Book extends BaseEntity {
         }
 
         Book other = (Book) object;
-
-        if (id != null) {
-            return id.equals(other.getId());
-        } else {
-            return this.name.equals(other.name) && this.author.equals(other.author) && this.publisher.equals(
-                other.publisher);
-        }
+        return id != null && id.equals(other.getId());
     }
 
     @Override

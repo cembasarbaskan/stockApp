@@ -4,16 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import com.idea.readingisgood.entity.Customer;
 import com.idea.readingisgood.entity.enums.EnumOrderStatus;
 
 public class OrderDTO extends BaseDTO {
 
-    @NotNull
+    @NotEmpty
     private String customerId;
 
+    @NotEmpty
     private String code;
 
     @NotEmpty
@@ -28,7 +27,7 @@ public class OrderDTO extends BaseDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(@NotNull String customerId, String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
+    public OrderDTO(@NotEmpty String customerId, @NotEmpty String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
         Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
         this.customerId = customerId;
         this.code = code;
@@ -38,8 +37,9 @@ public class OrderDTO extends BaseDTO {
         this.enumOrderStatus = enumOrderStatus;
     }
 
-    public OrderDTO(String id, @NotNull String customerId, String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
-        Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
+    public OrderDTO(String id, @NotEmpty String customerId, @NotEmpty String code,
+        @NotEmpty List<OrderedBookDTO> orderedBooks, Date createDate, Date updateDate,
+        EnumOrderStatus enumOrderStatus) {
         super(id);
         this.customerId = customerId;
         this.code = code;

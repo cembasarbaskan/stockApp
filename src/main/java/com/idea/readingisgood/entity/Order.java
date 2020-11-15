@@ -20,8 +20,8 @@ import com.idea.readingisgood.entity.enums.EnumOrderStatus;
 @Table(name = "ORDER_TABLE")
 public class Order extends BaseEntity {
 
-    @Column(name = "code", unique = true)
-    private String code;
+//    @Column(name = "code", unique = true)
+//    private String code;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
@@ -38,7 +38,7 @@ public class Order extends BaseEntity {
     }
 
     public Order(String code, Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
-        this.code = code;
+//        this.code = code;
         this.customer = customer;
         this.orderedBooks = orderedBooks;
         this.status = status;
@@ -46,7 +46,7 @@ public class Order extends BaseEntity {
 
     public Order(String id, String code, Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
         super(id);
-        this.code = code;
+//        this.code = code;
         this.customer = customer;
         this.orderedBooks = orderedBooks;
         this.status = status;
@@ -76,13 +76,13 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String code) {
+//        this.code = code;
+//    }
 
     @Override
     public boolean equals(Object object) {

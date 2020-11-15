@@ -12,5 +12,5 @@ import com.idea.readingisgood.entity.Order;
 public interface OrderRepository extends JpaRepository<Order, String> {
     List<Order> findAllByCustomer(Customer customer);
 
-    Order findByCode(String code);
+//    Order findByCode(String code);
 }

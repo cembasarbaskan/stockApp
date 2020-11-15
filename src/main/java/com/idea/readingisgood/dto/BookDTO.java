@@ -27,6 +27,9 @@ public class BookDTO extends BaseDTO {
     @NotEmpty
     private List<EnumGenre> genre;
 
+    public BookDTO() {
+    }
+
     private BookDTO(String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
         this.name = name;
         this.author = author;

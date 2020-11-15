@@ -35,7 +35,7 @@ public class OrderedBookMapper implements BaseMapper<OrderedBookDTO, OrderedBook
     @Override
     public OrderedBook dtoToEntity(OrderedBookDTO dto) {
         Optional<Book> optionalBook = bookRepository.findById(dto.getBookId());
-        Order order = orderRepository.findByCode(dto.getOrderCode());
+        Order order = orderRepository.getOne(dto.getOrderCode());
         if (optionalBook.isEmpty() || order == null) {
             throw new NoSuchElementException("The book in the order was not matched");
         }

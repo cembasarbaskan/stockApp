@@ -34,7 +34,7 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
     public OrderDTO entityToDTO(Order entity) {
         List<OrderedBookDTO> orderedBookDTOS =
             entity.getOrderedBooks().stream().map(orderedBookMapper::entityToDTO).collect(Collectors.toList());
-        return new OrderDTO(entity.getId(), entity.getCustomer().getId(), entity.getCode(), orderedBookDTOS,
+        return new OrderDTO(entity.getId(), entity.getCustomer().getId(), "entity.getCode()", orderedBookDTOS,
             entity.getCreateTime(), entity.getChangeTime(), entity.getStatus());
     }
 
@@ -49,8 +49,8 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
     public Order prepareOrderDTOForCreation(OrderDTO orderDTO) {
         Order order = new Order();
         order.setStatus(EnumOrderStatus.PREPARING);
-        order.setCode(orderDTO.getCode() != null ? orderDTO.getCode() : UUID.randomUUID().toString());
-        order.setCustomer(customerRepository.getOne(orderDTO.getId()));
+//        order.setCode(orderDTO.getCode() != null ? orderDTO.getCode() : UUID.randomUUID().toString());
+        order.setCustomer(customerRepository.getOne(orderDTO.getCustomerId()));
 
         List<OrderedBookDTO> orderedBookDTOS = orderDTO.getOrderedBooks();
 

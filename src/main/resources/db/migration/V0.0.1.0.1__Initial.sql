@@ -42,7 +42,7 @@ create table book_genre
 create table order_table
 (
     id          varchar(255) primary key,
-    code        varchar(255) not null unique,
+--     code        varchar(255) not null unique,
     customer_id varchar(255) not null,
     status      varchar(255) not null,
 
@@ -56,8 +56,10 @@ create table order_table
 
 create table ordered_book
 (
+    id          varchar(255) primary key,
     book_id     VARCHAR(255) not null,
-    order_code  varchar(255) not null,
+--     order_code  varchar(255) not null,
+    order_id    varchar(255) not null,
     piece       integer      not null default 0,
 
     change_time date,
@@ -65,9 +67,9 @@ create table ordered_book
     create_user varchar(255),
     change_user varchar(255),
 
-    primary key (order_code, book_id),
+    constraint uc_ordered_book unique (order_id, book_id),
     constraint ob_order_fk
-        foreign key (order_code) references order_table (code),
+        foreign key (order_id) references order_table (id),
     constraint ob_book_fk
         foreign key (book_id) references book (id)
 );

@@ -3,12 +3,10 @@ package com.idea.readingisgood.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.idea.readingisgood.entity.Book;
-
 public class StockDTO extends BaseDTO {
 
     @NotNull
-    private Book book;
+    private String bookId;
 
     @NotEmpty
     private Integer piece;
@@ -16,17 +14,23 @@ public class StockDTO extends BaseDTO {
     public StockDTO() {
     }
 
-    public StockDTO(Book book, Integer piece) {
-        this.book = book;
+    public StockDTO(@NotNull String bookId, @NotEmpty Integer piece) {
+        this.bookId = bookId;
         this.piece = piece;
     }
 
-    public Book getBook() {
-        return book;
+    public StockDTO(String id, @NotNull String bookId, @NotEmpty Integer piece) {
+        super(id);
+        this.bookId = bookId;
+        this.piece = piece;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public Integer getPiece() {

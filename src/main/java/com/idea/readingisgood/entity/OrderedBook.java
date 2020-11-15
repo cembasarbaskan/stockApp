@@ -2,6 +2,7 @@ package com.idea.readingisgood.entity;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,11 +16,11 @@ import javax.persistence.Table;
 public class OrderedBook extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_code")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Column(name = "piece")
@@ -29,6 +30,13 @@ public class OrderedBook extends BaseEntity {
     }
 
     public OrderedBook(Book book, Order order, Integer piece) {
+        this.book = book;
+        this.order = order;
+        this.piece = piece;
+    }
+
+    public OrderedBook(String id, Book book, Order order, Integer piece) {
+        super(id);
         this.book = book;
         this.order = order;
         this.piece = piece;
