@@ -27,7 +27,7 @@ import com.idea.readingisgood.repository.StockRepository;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class OrderServiceTest {
+public class OrderRepositoryTest {
     @Autowired
     private OrderRepository orderRepository;
 
@@ -36,12 +36,6 @@ public class OrderServiceTest {
 
     @Autowired
     private StockRepository stockRepository;
-
-    @Autowired
-    private BookMapper bookMapper;
-
-    @Autowired
-    private StockMapper stockMapper;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -89,6 +83,6 @@ public class OrderServiceTest {
 
         order = orderRepository.save(order);
 
-        assert order.getId() != null;
+        assert orderRepository.findById(order.getId()).isPresent();
     }
 }
