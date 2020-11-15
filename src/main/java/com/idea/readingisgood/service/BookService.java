@@ -1,24 +1,20 @@
 package com.idea.readingisgood.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityExistsException;
-
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.idea.readingisgood.validator.SavingItemIdCheck;
 import com.idea.readingisgood.dto.BookDTO;
 import com.idea.readingisgood.entity.Book;
 import com.idea.readingisgood.entity.response.BaseResponse;
 import com.idea.readingisgood.entity.response.SuccessResponse;
 import com.idea.readingisgood.mapper.BookMapper;
 import com.idea.readingisgood.repository.BookRepository;
+import com.idea.readingisgood.validator.SavingItemIdCheck;
 
 @Service
 public class BookService extends BaseService<Book, BookDTO> {
@@ -46,23 +42,13 @@ public class BookService extends BaseService<Book, BookDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> deleteOneById(String id) {
-        try {
-            bookRepository.deleteById(id);
-            return ResponseEntity.ok(
-                SuccessResponse.<String>builder().message("Deletion was successful").status(HttpStatus.OK).build());
-        } catch (EmptyResultDataAccessException e) {
-            throw new NoSuchElementException("No book found for deletion", e);
-        }
+        return ResponseEntity.ok(
+            SuccessResponse.<String>builder().message("Deletion was successful").status(HttpStatus.OK).build());
     }
 
     @Override
     public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Book.class) BookDTO bookDTO) {
-        Book book = bookRepository.findByDetail(bookDTO.getName(), bookDTO.getAuthor(), bookDTO.getPublisher());
-        if (book != null) {
-            throw new EntityExistsException("same book exists");
-        }
-
-        book = bookRepository.save(bookMapper.dtoToEntity(bookDTO));
+        Book book = bookRepository.save(bookMapper.dtoToEntity(bookDTO));
         return ResponseEntity.ok(
             SuccessResponse.<BookDTO>builder().data(bookMapper.entityToDTO(book)).status(HttpStatus.OK).build());
     }

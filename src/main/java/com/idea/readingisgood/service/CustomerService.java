@@ -5,9 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityExistsException;
-
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +15,7 @@ import com.idea.readingisgood.entity.response.BaseResponse;
 import com.idea.readingisgood.entity.response.SuccessResponse;
 import com.idea.readingisgood.mapper.CustomerMapper;
 import com.idea.readingisgood.repository.CustomerRepository;
+import com.idea.readingisgood.validator.SavingItemIdCheck;
 
 @Service
 public class CustomerService extends BaseService<Customer, CustomerDTO> {
@@ -46,23 +44,13 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> deleteOneById(String id) {
-        try {
-            customerRepository.deleteById(id);
-            return ResponseEntity.ok(
-                SuccessResponse.<String>builder().message("Deletion was successful").status(HttpStatus.OK).build());
-        } catch (EmptyResultDataAccessException e) {
-            throw new NoSuchElementException("No user found for deletion", e);
-        }
+        return ResponseEntity.ok(
+            SuccessResponse.<String>builder().message("Deletion was successful").status(HttpStatus.OK).build());
     }
 
     @Override
-    public ResponseEntity<BaseResponse> save(CustomerDTO customerDTO) {
-        var customer = customerRepository.findByEmail(customerDTO.getEmail());
-        if (customer != null) {
-            throw new EntityExistsException("Customer exists");
-        }
-
-        customer = customerRepository.save(customerMapper.dtoToEntity(customerDTO));
+    public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Customer.class) CustomerDTO customerDTO) {
+        Customer customer = customerRepository.save(customerMapper.dtoToEntity(customerDTO));
         return ResponseEntity.ok(SuccessResponse.<CustomerDTO>builder().data(customerMapper.entityToDTO(customer))
             .status(HttpStatus.OK)
             .build());
