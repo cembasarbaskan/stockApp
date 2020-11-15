@@ -3,6 +3,7 @@ package com.idea.readingisgood.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.OrderDTO;
@@ -12,11 +13,9 @@ import com.idea.readingisgood.entity.OrderedBook;
 
 @Component
 public class OrderMapper implements BaseMapper<OrderDTO, Order> {
-    private final OrderedBookMapper orderedBookMapper;
+    @Autowired
+    private OrderedBookMapper orderedBookMapper;
 
-    public OrderMapper(OrderedBookMapper orderedBookMapper) {
-        this.orderedBookMapper = orderedBookMapper;
-    }
 
     @Override
     public OrderDTO entityToDTO(Order entity) {
