@@ -1,9 +1,10 @@
 package com.idea.readingisgood.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CustomerDTO extends BaseDTO{
+public class CustomerDTO extends BaseDTO {
 
     @NotNull
     @Size(min = 2)
@@ -32,11 +33,14 @@ public class CustomerDTO extends BaseDTO{
     public CustomerDTO() {
     }
 
-    public CustomerDTO(@NotNull @Size(min = 2) String name, @NotNull @Size(min = 2) String lastName,
-        @NotNull @Size(min = 7) String email, @NotNull @Size(min = 10) String address,
-        @NotNull @Size(min = 10, max = 12) String telephone, @NotNull @Size(min = 4, max = 4) Integer yearOfBirth) {
+    public CustomerDTO(@NotEmpty String id, @NotNull @Size(min = 2) String name,
+        @NotNull @Size(min = 2) String lastName, @NotNull @Size(min = 7) String email,
+        @NotNull @Size(min = 10) String address, @NotNull @Size(min = 10, max = 12) String telephone,
+        @NotNull @Size(min = 4, max = 4) Integer yearOfBirth) {
+        super(id);
         this.name = name;
         this.lastName = lastName;
+        this.email = email;
         this.address = address;
         this.telephone = telephone;
         this.yearOfBirth = yearOfBirth;
@@ -95,6 +99,7 @@ public class CustomerDTO extends BaseDTO{
     }
 
     public static class CustomerDTOBuilder {
+        private String id;
         private String name;
         private String lastName;
         private String email;
@@ -103,6 +108,11 @@ public class CustomerDTO extends BaseDTO{
         private Integer yearOfBirth;
 
         CustomerDTOBuilder() {
+        }
+
+        public CustomerDTO.CustomerDTOBuilder id(String id) {
+            this.id = id;
+            return this;
         }
 
         public CustomerDTO.CustomerDTOBuilder name(String name) {
@@ -136,7 +146,7 @@ public class CustomerDTO extends BaseDTO{
         }
 
         public CustomerDTO build() {
-            return new CustomerDTO(this.name, this.lastName, this.email, this.address, this.telephone,
+            return new CustomerDTO(this.id, this.name, this.lastName, this.email, this.address, this.telephone,
                 this.yearOfBirth);
         }
     }

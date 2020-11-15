@@ -39,9 +39,10 @@ create table book_genre
         foreign key (book_id) references book (id)
 );
 
-create table "order"
+create table order_table
 (
     id          varchar(255) primary key,
+    code        varchar(255) not null unique,
     customer_id varchar(255) not null,
     status      varchar(255) not null,
 
@@ -55,19 +56,30 @@ create table "order"
 
 create table ordered_book
 (
-    order_id VARCHAR(255) not null,
-    book_id  VARCHAR(255) not null,
-    piece    integer      not null default 0,
-    primary key (order_id, book_id),
+    book_id     VARCHAR(255) not null,
+    order_code  varchar(255) not null,
+    piece       integer      not null default 0,
+
+    change_time date,
+    create_time date,
+    create_user varchar(255),
+    change_user varchar(255),
+
+    primary key (order_code, book_id),
     constraint ob_order_fk
-        foreign key (order_id) references "order" (id),
+        foreign key (order_code) references order_table (code),
     constraint ob_book_fk
         foreign key (book_id) references book (id)
 );
 
 create table stock
 (
-    id      varchar(255) primary key,
-    book_id varchar(255) not null unique,
-    piece   integer      not null default 0
+    id          varchar(255) primary key,
+    book_id     varchar(255) not null unique,
+    piece       integer      not null default 0,
+
+    change_time date,
+    create_time date,
+    create_user varchar(255),
+    change_user varchar(255)
 );

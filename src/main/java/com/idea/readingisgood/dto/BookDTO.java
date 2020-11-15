@@ -27,19 +27,22 @@ public class BookDTO extends BaseDTO {
     @NotEmpty
     private List<EnumGenre> genre;
 
-    private Integer stockSize;
-
-    private BookDTO() {
-    }
-
-    private BookDTO(String name, String author, String publisher, Date publishDate, List<EnumGenre> genre,
-        Integer stockSize) {
+    private BookDTO(String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
         this.publishDate = publishDate;
         this.genre = genre;
-        this.stockSize = stockSize;
+    }
+
+    private BookDTO(String id, @NotEmpty @Size(min = 2) String name, @NotEmpty @Size(min = 2) String author,
+        @NotEmpty @Size(min = 2) String publisher, Date publishDate, @NotEmpty List<EnumGenre> genre) {
+        super(id);
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishDate = publishDate;
+        this.genre = genre;
     }
 
     public static BookDTO.BookDTOBuilder builder() {
@@ -86,15 +89,8 @@ public class BookDTO extends BaseDTO {
         this.genre = genre;
     }
 
-    public Integer getStockSize() {
-        return stockSize;
-    }
-
-    public void setStockSize(Integer stockSize) {
-        this.stockSize = stockSize;
-    }
-
     public static class BookDTOBuilder {
+        private String id;
         private String name;
         private String author;
         private String publisher;
@@ -103,6 +99,11 @@ public class BookDTO extends BaseDTO {
         private Integer stockSize;
 
         public BookDTOBuilder() {
+        }
+
+        public BookDTO.BookDTOBuilder id(String id) {
+            this.id = id;
+            return this;
         }
 
         public BookDTO.BookDTOBuilder name(String name) {
@@ -130,13 +131,8 @@ public class BookDTO extends BaseDTO {
             return this;
         }
 
-        public BookDTO.BookDTOBuilder stockSize(Integer stockSize) {
-            this.stockSize = stockSize;
-            return this;
-        }
-
         public BookDTO build() {
-            return new BookDTO(this.name, this.author, this.publisher, this.publishDate, this.genre, this.stockSize);
+            return new BookDTO(this.id, this.name, this.author, this.publisher, this.publishDate, this.genre);
         }
     }
 }

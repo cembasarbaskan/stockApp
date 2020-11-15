@@ -11,6 +11,7 @@ public class CustomerMapper implements BaseMapper<CustomerDTO, Customer> {
     @Override
     public CustomerDTO entityToDTO(Customer customer) {
         return CustomerDTO.builder()
+            .id(customer.getId())
             .name(customer.getName())
             .lastName(customer.getLastName())
             .email(customer.getEmail())
@@ -23,6 +24,7 @@ public class CustomerMapper implements BaseMapper<CustomerDTO, Customer> {
     @Override
     public Customer dtoToEntity(CustomerDTO dto) {
         return Customer.builder()
+            .id(dto.getId())
             .name(dto.getName())
             .lastName(dto.getLastName())
             .email(dto.getEmail())

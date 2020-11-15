@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.idea.readingisgood.entity.BaseEntity;
 import com.idea.readingisgood.entity.response.BaseResponse;
+import com.idea.readingisgood.entity.response.SuccessResponse;
 
 /**
  * @param <E> Entity

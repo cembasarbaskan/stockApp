@@ -12,7 +12,9 @@ import com.idea.readingisgood.entity.enums.EnumOrderStatus;
 public class OrderDTO extends BaseDTO {
 
     @NotNull
-    private Customer customer;
+    private String customerId;
+
+    private String code;
 
     @NotEmpty
     private List<OrderedBookDTO> orderedBooks;
@@ -23,11 +25,25 @@ public class OrderDTO extends BaseDTO {
 
     private EnumOrderStatus enumOrderStatus;
 
-    public OrderDTO(String id, @NotNull Customer customer, @NotEmpty List<OrderedBookDTO> orderedBookDTOList,
+    public OrderDTO() {
+    }
+
+    public OrderDTO(@NotNull String customerId, String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
+        Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
+        this.customerId = customerId;
+        this.code = code;
+        this.orderedBooks = orderedBooks;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.enumOrderStatus = enumOrderStatus;
+    }
+
+    public OrderDTO(String id, @NotNull String customerId, String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
         Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
         super(id);
-        this.customer = customer;
-        this.orderedBooks = orderedBookDTOList;
+        this.customerId = customerId;
+        this.code = code;
+        this.orderedBooks = orderedBooks;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.enumOrderStatus = enumOrderStatus;
@@ -41,12 +57,12 @@ public class OrderDTO extends BaseDTO {
         this.orderedBooks = orderedBookDTOList;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public Date getCreateDate() {
@@ -73,4 +89,11 @@ public class OrderDTO extends BaseDTO {
         this.enumOrderStatus = enumOrderStatus;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

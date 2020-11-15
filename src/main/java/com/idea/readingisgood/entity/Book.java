@@ -40,7 +40,8 @@ public class Book extends BaseEntity {
     public Book() {
     }
 
-    private Book(String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
+    private Book(String id, String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
+        super(id);
         this.name = name;
         this.author = author;
         this.publisher = publisher;
@@ -93,12 +94,12 @@ public class Book extends BaseEntity {
     }
 
     public static class BookBuilder {
+        private String id;
         private String name;
         private String author;
         private String publisher;
         private Date publishDate;
         private List<EnumGenre> genre;
-        private Integer stockSize;
 
         public BookBuilder() {
         }
@@ -128,12 +129,13 @@ public class Book extends BaseEntity {
             return this;
         }
 
-        public void stockSize(Integer stockSize) {
-            this.stockSize = stockSize;
+        public BookBuilder id(String id) {
+            this.id = id;
+            return this;
         }
 
         public Book build() {
-            return new Book(this.name, this.author, this.publisher, this.publishDate, this.genre);
+            return new Book(this.id, this.name, this.author, this.publisher, this.publishDate, this.genre);
         }
     }
 

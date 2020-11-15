@@ -12,5 +12,6 @@ import javax.validation.Constraint;
 @Constraint(validatedBy = { SavingItemIdCheckValidator.class })
 public @interface SavingItemIdCheck {
     Class propName();
-    String message() default "User can not define an id to a new ";
+    String messageForId() default "User can not define an id to a new ";
+    String messageForStatus() default "Default status for new created them is ";
 }

@@ -14,12 +14,12 @@ import javax.persistence.Table;
 @Table(name = "ORDERED_BOOK")
 public class OrderedBook extends BaseEntity {
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Book book;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_code")
     private Order order;
 
     @Column(name = "piece")

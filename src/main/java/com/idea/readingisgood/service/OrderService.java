@@ -14,11 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
+import com.idea.readingisgood.entity.Customer;
 import com.idea.readingisgood.entity.Order;
 import com.idea.readingisgood.entity.Stock;
 import com.idea.readingisgood.entity.response.BaseResponse;
 import com.idea.readingisgood.entity.response.SuccessResponse;
 import com.idea.readingisgood.mapper.OrderMapper;
+import com.idea.readingisgood.repository.BookRepository;
+import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;
 import com.idea.readingisgood.validator.SavingItemIdCheck;
 
@@ -27,11 +30,15 @@ public class OrderService extends BaseService<Order, OrderDTO> {
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
     private final StockService stockService;
+    private final CustomerRepository customerRepository;
 
-    public OrderService(OrderMapper orderMapper, OrderRepository orderRepository, StockService stockService) {
+    public OrderService(OrderMapper orderMapper, OrderRepository orderRepository, StockService stockService,
+        CustomerRepository customerRepository, BookRepository bookRepository) {
         this.orderMapper = orderMapper;
         this.orderRepository = orderRepository;
         this.stockService = stockService;
+        this.customerRepository = customerRepository;
+
     }
 
     @Override
@@ -62,9 +69,9 @@ public class OrderService extends BaseService<Order, OrderDTO> {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Order.class) OrderDTO orderDTO) {
-        updateStockWithNewOrder(orderDTO);
-        return ResponseEntity.ok(SuccessResponse.<OrderDTO>builder().data(
-            orderMapper.entityToDTO(orderRepository.save(orderMapper.dtoToEntity(orderDTO))))
+        checkAndUpdateStockWithNewOrder(orderDTO);
+        Order savedOrder = orderRepository.save(orderMapper.prepareOrderDTOForCreation(orderDTO));
+        return ResponseEntity.ok(SuccessResponse.<OrderDTO>builder().data(orderMapper.entityToDTO(savedOrder))
             .status(HttpStatus.OK)
             .build());
     }
@@ -75,18 +82,28 @@ public class OrderService extends BaseService<Order, OrderDTO> {
         if (order.isEmpty()) {
             throw new NoSuchElementException("There is no order for update");
         }
-
         OrderDTO savedOrder = orderMapper.entityToDTO(orderRepository.save(orderMapper.dtoToEntity(dto)));
         return ResponseEntity.ok(SuccessResponse.<OrderDTO>builder().data(savedOrder).build());
     }
 
-    private void updateStockWithNewOrder(OrderDTO orderDTO) {
+    public ResponseEntity<BaseResponse> fetchWithCustomer(String customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if (customer.isEmpty()) {
+            throw new NoSuchElementException("Customer not found");
+        }
+        List<Order> orders = orderRepository.findAllByCustomer(customer.get());
+        List<OrderDTO> orderDTOS = orders.stream().map(orderMapper::entityToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(SuccessResponse.<List<OrderDTO>>builder().data(orderDTOS).build());
+    }
+
+    private void checkAndUpdateStockWithNewOrder(OrderDTO orderDTO) {
         for (OrderedBookDTO orderedBookDTO : orderDTO.getOrderedBooks()) {
-            Stock stock = stockService.findStockWithBookId(orderedBookDTO.getBook().getId());
+            Stock stock = stockService.findStockWithBookId(orderedBookDTO.getBookId());
             if (stock != null && stock.getPiece() >= orderedBookDTO.getPiece()) {
                 stock.setPiece(stock.getPiece() - orderedBookDTO.getPiece());
             } else {
-                throw new NoSuchElementException("");
+                throw new NoSuchElementException(
+                    "Book does not found in stock or insufficient book piece in stock" + orderedBookDTO.toString());
             }
         }
     }

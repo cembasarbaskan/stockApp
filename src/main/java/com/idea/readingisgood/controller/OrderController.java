@@ -2,7 +2,6 @@ package com.idea.readingisgood.controller;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +34,11 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<BaseResponse> getOrder(@PathVariable @NotEmpty String orderId) {
         return orderService.fetchOneById(orderId);
+    }
+
+    @GetMapping(path = "/customer")
+    public ResponseEntity<BaseResponse> getOrdersWithCustomer(@PathVariable @NotEmpty String customerId) {
+        return orderService.fetchWithCustomer(customerId);
     }
 
     @GetMapping(value = "/list")

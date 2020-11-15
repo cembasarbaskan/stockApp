@@ -10,7 +10,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,14 +17,17 @@ import javax.persistence.Table;
 import com.idea.readingisgood.entity.enums.EnumOrderStatus;
 
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDER_TABLE")
 public class Order extends BaseEntity {
+
+    @Column(name = "code", unique = true)
+    private String code;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderedBook> orderedBooks;
 
     @Column(name = "status")
@@ -35,7 +37,16 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    public Order(Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
+    public Order(String code, Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
+        this.code = code;
+        this.customer = customer;
+        this.orderedBooks = orderedBooks;
+        this.status = status;
+    }
+
+    public Order(String id, String code, Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
+        super(id);
+        this.code = code;
         this.customer = customer;
         this.orderedBooks = orderedBooks;
         this.status = status;
@@ -63,6 +74,14 @@ public class Order extends BaseEntity {
 
     public void setStatus(EnumOrderStatus status) {
         this.status = status;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

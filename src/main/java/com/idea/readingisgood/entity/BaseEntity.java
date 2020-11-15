@@ -40,6 +40,13 @@ public class BaseEntity implements Serializable {
     @JsonIgnore
     protected String createUser;
 
+    public BaseEntity() {
+    }
+
+    public BaseEntity(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

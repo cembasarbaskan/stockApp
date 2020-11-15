@@ -10,6 +10,7 @@ public class BookMapper implements BaseMapper<BookDTO, Book> {
     @Override
     public BookDTO entityToDTO(Book entity) {
         return BookDTO.builder()
+            .id(entity.getId())
             .name(entity.getName())
             .author(entity.getAuthor())
             .publisher(entity.getPublisher())
@@ -21,6 +22,7 @@ public class BookMapper implements BaseMapper<BookDTO, Book> {
     @Override
     public Book dtoToEntity(BookDTO dto) {
         return Book.builder()
+            .id(dto.getId())
             .name(dto.getName())
             .author(dto.getAuthor())
             .publisher(dto.getPublisher())

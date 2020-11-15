@@ -31,7 +31,9 @@ public class Customer extends BaseEntity {
     public Customer() {
     }
 
-    public Customer(String name, String lastName, String email, String address, String telephone, Integer yearOfBirth) {
+    private Customer(String id, String name, String lastName, String email, String address, String telephone,
+        Integer yearOfBirth) {
+        super(id);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -112,6 +114,7 @@ public class Customer extends BaseEntity {
     }
 
     public static class CustomerBuilder {
+        private String id;
         private String name;
         private String lastName;
         private String email;
@@ -120,6 +123,11 @@ public class Customer extends BaseEntity {
         private Integer yearOfBirth;
 
         CustomerBuilder() {
+        }
+
+        public CustomerBuilder id(String id) {
+            this.id = id;
+            return this;
         }
 
         public CustomerBuilder name(String name) {
@@ -153,7 +161,8 @@ public class Customer extends BaseEntity {
         }
 
         public Customer build() {
-            return new Customer(this.name, this.lastName, this.email, this.address, this.telephone, this.yearOfBirth);
+            return new Customer(this.id, this.name, this.lastName, this.email, this.address, this.telephone,
+                this.yearOfBirth);
         }
     }
 
