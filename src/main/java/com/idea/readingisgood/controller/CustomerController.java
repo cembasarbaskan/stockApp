@@ -3,6 +3,8 @@ package com.idea.readingisgood.controller;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/customer")
 public class CustomerController {
     private final CustomerService customerService;
-
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }

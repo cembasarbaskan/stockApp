@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import com.idea.readingisgood.validator.SavingItemIdCheck;
 
 @Service
 public class CustomerService extends BaseService<Customer, CustomerDTO> {
+    private final static Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
 
@@ -29,6 +33,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> fetchAll(int start, int size) {
+        logger.info("[CustomerService.fetchAll] called with start: {} and size: {} params", start, size);
         var customers = customerRepository.findAll(createPageRequest(start, size, "changeTime"));
         var listOfCustomerDTO = customers.stream().map(customerMapper::entityToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(
@@ -37,6 +42,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> fetchOneById(String id) {
+        logger.info("[CustomerService.fetchOneById] called with customerId: {}", id);
         Optional<Customer> optCustomer = customerRepository.findById(id);
         return optCustomer.<ResponseEntity<BaseResponse>>map(customer -> ResponseEntity.ok(
             SuccessResponse.<CustomerDTO>builder().data(customerMapper.entityToDTO(customer)).build())).orElseThrow();
@@ -44,12 +50,14 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> deleteOneById(String id) {
+        logger.info("[CustomerService.deleteOneById] called with customerId: {}", id);
         return ResponseEntity.ok(
             SuccessResponse.<String>builder().message("Deletion was successful").status(HttpStatus.OK).build());
     }
 
     @Override
     public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Customer.class) CustomerDTO customerDTO) {
+        logger.info("[CustomerService.save] called with customer: {}", customerDTO);
         Customer customer = customerRepository.save(customerMapper.dtoToEntity(customerDTO));
         return ResponseEntity.ok(SuccessResponse.<CustomerDTO>builder().data(customerMapper.entityToDTO(customer))
             .status(HttpStatus.OK)
@@ -58,6 +66,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
 
     @Override
     public ResponseEntity<BaseResponse> update(CustomerDTO dto) {
+        logger.info("[CustomerService.update] called with customer: {}", dto);
         var customer = customerRepository.findByEmail(dto.getEmail());
         if (customer == null) {
             throw new NoSuchElementException("There was not any matched customer for update");

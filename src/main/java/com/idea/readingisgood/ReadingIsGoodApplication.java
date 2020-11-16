@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,13 +16,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @SpringBootApplication
 public class ReadingIsGoodApplication {
+    private final static Logger logger = LoggerFactory.getLogger(ReadingIsGoodApplication.class);
 
     public static void main(String[] args) {
-        System.out.println("Bearer token was here: " + getJWTToken());
+        logger.info(new StringBuilder("Bearer token was here: ").append(getJWTToken()).toString());
         SpringApplication.run(ReadingIsGoodApplication.class, args);
     }
 
-    public static String getJWTToken() {
+    private static String getJWTToken() {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
@@ -30,7 +33,7 @@ public class ReadingIsGoodApplication {
             .claim("authorities",
                 grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + 600000))
+            .setExpiration(new Date(System.currentTimeMillis() + 6000000))
             .signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
             .compact();
 

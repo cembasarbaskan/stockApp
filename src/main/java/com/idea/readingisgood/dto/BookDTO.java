@@ -92,6 +92,12 @@ public class BookDTO extends BaseDTO {
         this.genre = genre;
     }
 
+    @Override
+    public String toString() {
+        return "BookDTO{" + "name='" + name + '\'' + ", author='" + author + '\'' + ", publisher='" + publisher + '\''
+            + ", publishDate=" + publishDate + ", genre=" + genre + '}';
+    }
+
     public static class BookDTOBuilder {
         private String id;
         private String name;
