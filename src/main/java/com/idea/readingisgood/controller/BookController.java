@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idea.readingisgood.dto.BookDTO;
-import com.idea.readingisgood.entity.response.BaseResponse;
+import com.idea.readingisgood.domain.response.BaseResponse;
 import com.idea.readingisgood.service.BookService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.idea.readingisgood.entity.enums.EnumOrderStatus;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 
 public class OrderDTO extends BaseDTO {
 

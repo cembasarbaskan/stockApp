@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity;
+package com.idea.readingisgood.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

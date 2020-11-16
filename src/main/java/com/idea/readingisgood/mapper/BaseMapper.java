@@ -1,6 +1,6 @@
 package com.idea.readingisgood.mapper;
 
-import com.idea.readingisgood.entity.BaseEntity;
+import com.idea.readingisgood.domain.BaseEntity;
 
 /**
  * @param <D> DTO

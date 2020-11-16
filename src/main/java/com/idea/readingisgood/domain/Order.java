@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity;
+package com.idea.readingisgood.domain;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.idea.readingisgood.entity.enums.EnumOrderStatus;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 
 @Entity
 @Table(name = "ORDER_TABLE")

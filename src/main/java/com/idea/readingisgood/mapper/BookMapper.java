@@ -3,7 +3,7 @@ package com.idea.readingisgood.mapper;
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.BookDTO;
-import com.idea.readingisgood.entity.Book;
+import com.idea.readingisgood.domain.Book;
 
 @Component
 public class BookMapper implements BaseMapper<BookDTO, Book> {

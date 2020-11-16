@@ -1,32 +1,41 @@
-package com.idea.readingisgood;
+package com.idea.readingisgood.controller;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.idea.readingisgood.domain.Admin;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@SpringBootApplication
-public class ReadingIsGoodApplication {
+public class AdminController {
 
-    public static void main(String[] args) {
-        System.out.println("Bearer token was here: " + getJWTToken());
-        SpringApplication.run(ReadingIsGoodApplication.class, args);
+    @PostMapping("admin")
+    public Admin login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+
+        String token = getJWTToken(username);
+        Admin admin = new Admin();
+        admin.setUsername(username);
+        admin.setPassword(pwd);
+        admin.setToken(token);
+        return admin;
+
     }
 
-    public static String getJWTToken() {
+    private String getJWTToken(String username) {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
         String token = Jwts.builder()
-            .setId("JWT")
-            .setSubject("rocking")
+            .setId("softtekJWT")
+            .setSubject(username)
             .claim("authorities",
                 grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
             .setIssuedAt(new Date(System.currentTimeMillis()))

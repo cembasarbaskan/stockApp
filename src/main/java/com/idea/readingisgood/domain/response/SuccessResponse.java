@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity.response;
+package com.idea.readingisgood.domain.response;
 
 import java.util.Calendar;
 

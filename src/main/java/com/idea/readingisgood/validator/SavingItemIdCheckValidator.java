@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.idea.readingisgood.dto.BaseDTO;
 import com.idea.readingisgood.dto.OrderDTO;
-import com.idea.readingisgood.entity.enums.EnumOrderStatus;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 
 public class SavingItemIdCheckValidator implements ConstraintValidator<SavingItemIdCheck, Object> {
     private String messageForId;

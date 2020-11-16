@@ -5,9 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 
-import com.idea.readingisgood.entity.BaseEntity;
-import com.idea.readingisgood.entity.response.BaseResponse;
-import com.idea.readingisgood.entity.response.SuccessResponse;
+import com.idea.readingisgood.domain.BaseEntity;
+import com.idea.readingisgood.domain.response.BaseResponse;
 
 /**
  * @param <E> Entity

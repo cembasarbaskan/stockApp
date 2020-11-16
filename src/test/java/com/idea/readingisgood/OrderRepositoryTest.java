@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.Customer;
-import com.idea.readingisgood.entity.Order;
-import com.idea.readingisgood.entity.OrderedBook;
-import com.idea.readingisgood.entity.Stock;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.Customer;
+import com.idea.readingisgood.domain.Order;
+import com.idea.readingisgood.domain.OrderedBook;
+import com.idea.readingisgood.domain.Stock;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;

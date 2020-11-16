@@ -15,11 +15,11 @@ import org.springframework.validation.annotation.Validated;
 
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
-import com.idea.readingisgood.entity.Customer;
-import com.idea.readingisgood.entity.Order;
-import com.idea.readingisgood.entity.Stock;
-import com.idea.readingisgood.entity.response.BaseResponse;
-import com.idea.readingisgood.entity.response.SuccessResponse;
+import com.idea.readingisgood.domain.Customer;
+import com.idea.readingisgood.domain.Order;
+import com.idea.readingisgood.domain.Stock;
+import com.idea.readingisgood.domain.response.BaseResponse;
+import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.mapper.OrderMapper;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;

@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity;
+package com.idea.readingisgood.domain;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.idea.readingisgood.entity.enums.EnumGenre;
+import com.idea.readingisgood.domain.enums.EnumGenre;
 
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "author", "publisher" }) })
 @Entity

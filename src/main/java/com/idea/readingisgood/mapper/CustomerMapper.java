@@ -3,7 +3,7 @@ package com.idea.readingisgood.mapper;
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.CustomerDTO;
-import com.idea.readingisgood.entity.Customer;
+import com.idea.readingisgood.domain.Customer;
 
 @Component
 public class CustomerMapper implements BaseMapper<CustomerDTO, Customer> {

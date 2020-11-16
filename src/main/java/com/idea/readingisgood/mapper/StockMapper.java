@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.StockDTO;
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.Stock;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.Stock;
 import com.idea.readingisgood.repository.BookRepository;
 
 @Component

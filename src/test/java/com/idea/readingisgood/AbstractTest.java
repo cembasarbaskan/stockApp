@@ -9,13 +9,13 @@ import com.idea.readingisgood.dto.CustomerDTO;
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
 import com.idea.readingisgood.dto.StockDTO;
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.Customer;
-import com.idea.readingisgood.entity.Order;
-import com.idea.readingisgood.entity.OrderedBook;
-import com.idea.readingisgood.entity.Stock;
-import com.idea.readingisgood.entity.enums.EnumGenre;
-import com.idea.readingisgood.entity.enums.EnumOrderStatus;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.Customer;
+import com.idea.readingisgood.domain.Order;
+import com.idea.readingisgood.domain.OrderedBook;
+import com.idea.readingisgood.domain.Stock;
+import com.idea.readingisgood.domain.enums.EnumGenre;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 
 public class AbstractTest {
     public Customer createCustomer() {

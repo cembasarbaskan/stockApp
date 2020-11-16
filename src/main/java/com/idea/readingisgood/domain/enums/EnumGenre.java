@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity.enums;
+package com.idea.readingisgood.domain.enums;
 
 public enum EnumGenre {
 

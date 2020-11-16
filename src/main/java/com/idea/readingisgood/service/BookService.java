@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.idea.readingisgood.dto.BookDTO;
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.response.BaseResponse;
-import com.idea.readingisgood.entity.response.SuccessResponse;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.response.BaseResponse;
+import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.mapper.BookMapper;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.validator.SavingItemIdCheck;

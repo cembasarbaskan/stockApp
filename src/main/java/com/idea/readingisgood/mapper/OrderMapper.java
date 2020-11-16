@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.Order;
-import com.idea.readingisgood.entity.OrderedBook;
-import com.idea.readingisgood.entity.enums.EnumOrderStatus;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.Order;
+import com.idea.readingisgood.domain.OrderedBook;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;
 

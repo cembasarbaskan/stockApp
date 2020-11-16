@@ -1,6 +1,6 @@
 package com.idea.readingisgood.dto;
 
-import com.idea.readingisgood.entity.BaseEntity;
+import com.idea.readingisgood.domain.BaseEntity;
 
 public class OrderedBookDTO extends BaseEntity {
     private String bookId;

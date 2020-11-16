@@ -1,4 +1,4 @@
-package com.idea.readingisgood.entity.enums;
+package com.idea.readingisgood.domain.enums;
 
 public enum EnumOrderStatus {
     PREPARING("prepared"), CANCELLED("cancelled"), SHIPPING("prepared"), SHIPPED("on_the_road"), REACHED("reached");

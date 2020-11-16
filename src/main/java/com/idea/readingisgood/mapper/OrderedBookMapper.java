@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.idea.readingisgood.dto.OrderedBookDTO;
-import com.idea.readingisgood.entity.Book;
-import com.idea.readingisgood.entity.Order;
-import com.idea.readingisgood.entity.OrderedBook;
+import com.idea.readingisgood.domain.Book;
+import com.idea.readingisgood.domain.Order;
+import com.idea.readingisgood.domain.OrderedBook;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;

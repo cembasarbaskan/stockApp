@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.idea.readingisgood.dto.StockDTO;
-import com.idea.readingisgood.entity.Stock;
-import com.idea.readingisgood.entity.response.BaseResponse;
-import com.idea.readingisgood.entity.response.SuccessResponse;
+import com.idea.readingisgood.domain.Stock;
+import com.idea.readingisgood.domain.response.BaseResponse;
+import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.mapper.StockMapper;
 import com.idea.readingisgood.repository.StockRepository;
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import com.idea.readingisgood.entity.response.ErrorResponse;
+import com.idea.readingisgood.domain.response.ErrorResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

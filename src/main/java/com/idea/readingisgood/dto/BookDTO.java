@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.idea.readingisgood.entity.enums.EnumGenre;
+import com.idea.readingisgood.domain.enums.EnumGenre;
 
 public class BookDTO extends BaseDTO {
 
