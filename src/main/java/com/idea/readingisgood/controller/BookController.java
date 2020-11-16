@@ -1,6 +1,7 @@
 package com.idea.readingisgood.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,9 +36,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<BaseResponse> getListBook(
-        @RequestParam(name = "startIndex", required = false) Integer startIndex,
-        @RequestParam(name = "size", required = false) Integer size) {
+    public ResponseEntity<BaseResponse> getListBook(@RequestParam(name = "startIndex") Integer startIndex,
+        @RequestParam(name = "size") @Size(min = 1, max = 10) Integer size) {
         return bookService.fetchAll(startIndex, size);
     }
 

@@ -1,6 +1,7 @@
 package com.idea.readingisgood.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +37,8 @@ public class StockController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<BaseResponse> getListStock(
-        @RequestParam(name = "startIndex", required = false) Integer startIndex,
-        @RequestParam(name = "size", required = false) Integer size) {
+    public ResponseEntity<BaseResponse> getListStock(@RequestParam(name = "startIndex") Integer startIndex,
+        @RequestParam(name = "size") @Size(min = 1, max = 10) Integer size) {
         return stockService.fetchAll(startIndex, size);
     }
 
