@@ -31,12 +31,12 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @GetMapping(path = "/{orderId}")
     public ResponseEntity<BaseResponse> getOrder(@PathVariable @NotEmpty String orderId) {
         return orderService.fetchOneById(orderId);
     }
 
-    @GetMapping(path = "/customer")
+    @GetMapping(path = "/customer/{customerId}")
     public ResponseEntity<BaseResponse> getOrdersWithCustomer(@PathVariable @NotEmpty String customerId) {
         return orderService.fetchWithCustomer(customerId);
     }

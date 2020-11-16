@@ -26,8 +26,8 @@ public class StockController {
     }
 
     @GetMapping
-    public ResponseEntity<BaseResponse> getStock(@PathVariable String bookId) {
-        return stockService.fetchOneById(bookId);
+    public ResponseEntity<BaseResponse> getStock(@PathVariable String stockId) {
+        return stockService.fetchOneById(stockId);
     }
 
     @GetMapping(path = "/book")

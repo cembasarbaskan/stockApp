@@ -15,8 +15,6 @@ import com.idea.readingisgood.dto.CustomerDTO;
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.entity.response.BaseResponse;
 import com.idea.readingisgood.entity.response.SuccessResponse;
-import com.idea.readingisgood.mapper.BookMapper;
-import com.idea.readingisgood.mapper.CustomerMapper;
 import com.idea.readingisgood.service.BookService;
 import com.idea.readingisgood.service.CustomerService;
 import com.idea.readingisgood.service.OrderService;
@@ -28,13 +26,9 @@ public class OrderScenarioTest extends AbstractTest {
 
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private CustomerMapper customerMapper;
 
     @Autowired
     private BookService bookService;
-    @Autowired
-    private BookMapper bookMapper;
 
     @Autowired
     private StockService stockService;
@@ -54,7 +48,7 @@ public class OrderScenarioTest extends AbstractTest {
         SuccessResponse<BookDTO> bookSuccessResponse = (SuccessResponse<BookDTO>) bookResponse.getBody();
         BookDTO bookDTO = bookSuccessResponse.getData();
 
-        ResponseEntity<BaseResponse> stockResponse = stockService.save(createStockDTO(bookDTO));
+        stockService.save(createStockDTO(bookDTO));
 
         orderDTO = setOrderDTOAttributes(orderDTO, customerDTO,
             Collections.singletonList(createOrderedBookDTO(bookDTO, orderDTO)));
