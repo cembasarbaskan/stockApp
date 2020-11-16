@@ -51,7 +51,7 @@ public class OrderScenarioTest extends AbstractTest {
         stockService.save(createStockDTO(bookDTO));
 
         orderDTO = setOrderDTOAttributes(orderDTO, customerDTO,
-            Collections.singletonList(createOrderedBookDTO(bookDTO, orderDTO)));
+            Collections.singleton(createOrderedBookDTO(bookDTO, orderDTO)));
 
         ResponseEntity<BaseResponse> response = orderService.save(orderDTO);
 

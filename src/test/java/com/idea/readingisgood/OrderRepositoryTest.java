@@ -1,6 +1,6 @@
 package com.idea.readingisgood;
 
-import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,7 @@ import com.idea.readingisgood.domain.Customer;
 import com.idea.readingisgood.domain.Order;
 import com.idea.readingisgood.domain.OrderedBook;
 import com.idea.readingisgood.domain.Stock;
+import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;
@@ -36,9 +37,41 @@ public class OrderRepositoryTest extends AbstractTest {
 
     @Test
     @Transactional
+    @org.junit.jupiter.api.Order(1)
     void saveTest() {
         Order order = new Order();
+        order = fillAndSaveOrder(order);
+        orderRepository.save(order);
+        assert orderRepository.findById(order.getId()).isPresent();
+    }
 
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    @Transactional
+    void updateTest() {
+        Order check = new Order();
+        check = fillAndSaveOrder(check);
+
+        check.setStatus(EnumOrderStatus.SHIPPED);
+        orderRepository.save(check);
+
+        Order mate = orderRepository.getOne(check.getId());
+        assert mate.getStatus().equals(EnumOrderStatus.SHIPPED);
+    }
+
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    @Transactional
+    void deleteTest() {
+        Order check = new Order();
+        check = fillAndSaveOrder(check);
+        orderRepository.save(check);
+
+        Order mate = orderRepository.getOne(check.getId());
+        assert mate.getStatus().equals(EnumOrderStatus.SHIPPED);
+    }
+
+    private Order fillAndSaveOrder(Order order) {
         // create Customer
         Customer customer = customerRepository.save(createCustomer());
 
@@ -52,8 +85,9 @@ public class OrderRepositoryTest extends AbstractTest {
         OrderedBook orderedBook = createOrderedBook(book, order);
 
         // set & save Order
-        order = orderRepository.save(setOrderAttributes(order, customer, Collections.singletonList(orderedBook)));
-
-        assert orderRepository.findById(order.getId()).isPresent();
+        HashSet<OrderedBook> orderedBooks = new HashSet<>();
+        orderedBooks.add(orderedBook);
+        order = orderRepository.saveAndFlush(setOrderAttributes(order, customer, orderedBooks));
+        return order;
     }
 }

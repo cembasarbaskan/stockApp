@@ -2,6 +2,7 @@ package com.idea.readingisgood.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -16,7 +17,7 @@ public class OrderDTO extends BaseDTO {
     private String code;
 
     @NotEmpty
-    private List<OrderedBookDTO> orderedBooks;
+    private Set<OrderedBookDTO> orderedBooks;
 
     private Date createDate;
 
@@ -27,7 +28,7 @@ public class OrderDTO extends BaseDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(@NotEmpty String customerId, @NotEmpty String code, @NotEmpty List<OrderedBookDTO> orderedBooks,
+    public OrderDTO(@NotEmpty String customerId, @NotEmpty String code, @NotEmpty Set<OrderedBookDTO> orderedBooks,
         Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
         this.customerId = customerId;
         this.code = code;
@@ -38,7 +39,7 @@ public class OrderDTO extends BaseDTO {
     }
 
     public OrderDTO(String id, @NotEmpty String customerId, @NotEmpty String code,
-        @NotEmpty List<OrderedBookDTO> orderedBooks, Date createDate, Date updateDate,
+        @NotEmpty Set<OrderedBookDTO> orderedBooks, Date createDate, Date updateDate,
         EnumOrderStatus enumOrderStatus) {
         super(id);
         this.customerId = customerId;
@@ -49,11 +50,11 @@ public class OrderDTO extends BaseDTO {
         this.enumOrderStatus = enumOrderStatus;
     }
 
-    public List<OrderedBookDTO> getOrderedBooks() {
+    public Set<OrderedBookDTO> getOrderedBooks() {
         return orderedBooks;
     }
 
-    public void setOrderedBooks(List<OrderedBookDTO> orderedBookDTOList) {
+    public void setOrderedBooks(Set<OrderedBookDTO> orderedBookDTOList) {
         this.orderedBooks = orderedBookDTOList;
     }
 

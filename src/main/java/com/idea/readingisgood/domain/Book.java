@@ -3,6 +3,7 @@ package com.idea.readingisgood.domain;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -35,13 +36,21 @@ public class Book extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = EnumGenre.class)
     @CollectionTable(name = "book_genre", joinColumns = @JoinColumn(name = "book_id"))
-    private List<EnumGenre> genre;
+    private Set<EnumGenre> genre;
 
     public Book() {
     }
 
-    private Book(String id, String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
+    public Book(String id, String name, String author, String publisher, Date publishDate, Set<EnumGenre> genre) {
         super(id);
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishDate = publishDate;
+        this.genre = genre;
+    }
+
+    public Book(String name, String author, String publisher, Date publishDate, Set<EnumGenre> genre) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
@@ -85,11 +94,11 @@ public class Book extends BaseEntity {
         this.publishDate = publishDate;
     }
 
-    public List<EnumGenre> getGenre() {
+    public Set<EnumGenre> getGenre() {
         return genre;
     }
 
-    public void setGenre(List<EnumGenre> genre) {
+    public void setGenre(Set<EnumGenre> genre) {
         this.genre = genre;
     }
 
@@ -99,7 +108,7 @@ public class Book extends BaseEntity {
         private String author;
         private String publisher;
         private Date publishDate;
-        private List<EnumGenre> genre;
+        private Set<EnumGenre> genre;
 
         public BookBuilder() {
         }
@@ -124,7 +133,7 @@ public class Book extends BaseEntity {
             return this;
         }
 
-        public BookBuilder genre(List<EnumGenre> genre) {
+        public BookBuilder genre(Set<EnumGenre> genre) {
             this.genre = genre;
             return this;
         }

@@ -1,9 +1,11 @@
 package com.idea.readingisgood.mapper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -31,16 +33,16 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
 
     @Override
     public OrderDTO entityToDTO(Order entity) {
-        List<OrderedBookDTO> orderedBookDTOS =
-            entity.getOrderedBooks().stream().map(orderedBookMapper::entityToDTO).collect(Collectors.toList());
+        Set<OrderedBookDTO> orderedBookDTOS =
+            entity.getOrderedBooks().stream().map(orderedBookMapper::entityToDTO).collect(Collectors.toSet());
         return new OrderDTO(entity.getId(), entity.getCustomer().getId(), "entity.getCode()", orderedBookDTOS,
             entity.getCreateTime(), entity.getChangeTime(), entity.getStatus());
     }
 
     @Override
     public Order dtoToEntity(OrderDTO dto) {
-        List<OrderedBook> orderedBooks =
-            dto.getOrderedBooks().stream().map(orderedBookMapper::dtoToEntity).collect(Collectors.toList());
+        Set<OrderedBook> orderedBooks =
+            dto.getOrderedBooks().stream().map(orderedBookMapper::dtoToEntity).collect(Collectors.toSet());
         return new Order(dto.getId(), customerRepository.getOne(dto.getCustomerId()), orderedBooks, dto.getEnumOrderStatus());
     }
 
@@ -48,12 +50,11 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
     public Order prepareOrderDTOForCreation(OrderDTO orderDTO) {
         Order order = new Order();
         order.setStatus(EnumOrderStatus.PREPARING);
-//        order.setCode(orderDTO.getCode() != null ? orderDTO.getCode() : UUID.randomUUID().toString());
         order.setCustomer(customerRepository.getOne(orderDTO.getCustomerId()));
 
-        List<OrderedBookDTO> orderedBookDTOS = orderDTO.getOrderedBooks();
+        Set<OrderedBookDTO> orderedBookDTOS = orderDTO.getOrderedBooks();
 
-        List<OrderedBook> orderedBooks = new ArrayList<>();
+        Set<OrderedBook> orderedBooks = new HashSet<>();
         for (OrderedBookDTO orderedBookDTO : orderedBookDTOS) {
             OrderedBook orderedBook = new OrderedBook();
             Optional<Book> optionalBook= bookRepository.findById(orderedBookDTO.getBookId());

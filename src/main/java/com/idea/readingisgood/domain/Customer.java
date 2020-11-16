@@ -31,9 +31,18 @@ public class Customer extends BaseEntity {
     public Customer() {
     }
 
-    private Customer(String id, String name, String lastName, String email, String address, String telephone,
+    public Customer(String id, String name, String lastName, String email, String address, String telephone,
         Integer yearOfBirth) {
         super(id);
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.telephone = telephone;
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public Customer(String name, String lastName, String email, String address, String telephone, Integer yearOfBirth) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;

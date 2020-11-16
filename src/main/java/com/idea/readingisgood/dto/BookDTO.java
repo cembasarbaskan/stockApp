@@ -2,6 +2,7 @@ package com.idea.readingisgood.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -25,12 +26,13 @@ public class BookDTO extends BaseDTO {
     private Date publishDate;
 
     @NotEmpty
-    private List<EnumGenre> genre;
+    private Set<EnumGenre> genre;
 
     public BookDTO() {
     }
 
-    private BookDTO(String name, String author, String publisher, Date publishDate, List<EnumGenre> genre) {
+    public BookDTO(@NotEmpty @Size(min = 2) String name, @NotEmpty @Size(min = 2) String author,
+        @NotEmpty @Size(min = 2) String publisher, Date publishDate, @NotEmpty Set<EnumGenre> genre) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
@@ -38,8 +40,8 @@ public class BookDTO extends BaseDTO {
         this.genre = genre;
     }
 
-    private BookDTO(String id, @NotEmpty @Size(min = 2) String name, @NotEmpty @Size(min = 2) String author,
-        @NotEmpty @Size(min = 2) String publisher, Date publishDate, @NotEmpty List<EnumGenre> genre) {
+    public BookDTO(String id, @NotEmpty @Size(min = 2) String name, @NotEmpty @Size(min = 2) String author,
+        @NotEmpty @Size(min = 2) String publisher, Date publishDate, @NotEmpty Set<EnumGenre> genre) {
         super(id);
         this.name = name;
         this.author = author;
@@ -84,11 +86,11 @@ public class BookDTO extends BaseDTO {
         this.publishDate = publishDate;
     }
 
-    public List<EnumGenre> getGenre() {
+    public Set<EnumGenre> getGenre() {
         return genre;
     }
 
-    public void setGenre(List<EnumGenre> genre) {
+    public void setGenre(Set<EnumGenre> genre) {
         this.genre = genre;
     }
 
@@ -104,8 +106,7 @@ public class BookDTO extends BaseDTO {
         private String author;
         private String publisher;
         private Date publishDate;
-        private List<EnumGenre> genre;
-        private Integer stockSize;
+        private Set<EnumGenre> genre;
 
         public BookDTOBuilder() {
         }
@@ -135,7 +136,7 @@ public class BookDTO extends BaseDTO {
             return this;
         }
 
-        public BookDTO.BookDTOBuilder genre(List<EnumGenre> genre) {
+        public BookDTO.BookDTOBuilder genre(Set<EnumGenre> genre) {
             this.genre = genre;
             return this;
         }

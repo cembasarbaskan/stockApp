@@ -2,6 +2,7 @@ package com.idea.readingisgood.domain;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,8 +25,8 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderedBook> orderedBooks;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<OrderedBook> orderedBooks;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -34,13 +35,13 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    public Order(Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
+    public Order(Customer customer, Set<OrderedBook> orderedBooks, EnumOrderStatus status) {
         this.customer = customer;
         this.orderedBooks = orderedBooks;
         this.status = status;
     }
 
-    public Order(String id, Customer customer, List<OrderedBook> orderedBooks, EnumOrderStatus status) {
+    public Order(String id, Customer customer, Set<OrderedBook> orderedBooks, EnumOrderStatus status) {
         super(id);
         this.customer = customer;
         this.orderedBooks = orderedBooks;
@@ -55,11 +56,11 @@ public class Order extends BaseEntity {
         this.customer = customer;
     }
 
-    public List<OrderedBook> getOrderedBooks() {
+    public Set<OrderedBook> getOrderedBooks() {
         return orderedBooks;
     }
 
-    public void setOrderedBooks(List<OrderedBook> orderedBooks) {
+    public void setOrderedBooks(Set<OrderedBook> orderedBooks) {
         this.orderedBooks = orderedBooks;
     }
 
