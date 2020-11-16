@@ -19,7 +19,7 @@ public class OrderedBook extends BaseEntity {
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 

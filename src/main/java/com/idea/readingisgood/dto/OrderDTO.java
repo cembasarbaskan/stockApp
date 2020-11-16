@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.idea.readingisgood.domain.enums.EnumOrderStatus;
 
@@ -13,10 +14,7 @@ public class OrderDTO extends BaseDTO {
     @NotEmpty
     private String customerId;
 
-    @NotEmpty
-    private String code;
-
-    @NotEmpty
+    @NotNull
     private Set<OrderedBookDTO> orderedBooks;
 
     private Date createDate;
@@ -28,22 +26,20 @@ public class OrderDTO extends BaseDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(@NotEmpty String customerId, @NotEmpty String code, @NotEmpty Set<OrderedBookDTO> orderedBooks,
+    public OrderDTO(@NotEmpty String customerId, @NotEmpty Set<OrderedBookDTO> orderedBooks,
         Date createDate, Date updateDate, EnumOrderStatus enumOrderStatus) {
         this.customerId = customerId;
-        this.code = code;
         this.orderedBooks = orderedBooks;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.enumOrderStatus = enumOrderStatus;
     }
 
-    public OrderDTO(String id, @NotEmpty String customerId, @NotEmpty String code,
+    public OrderDTO(String id, @NotEmpty String customerId,
         @NotEmpty Set<OrderedBookDTO> orderedBooks, Date createDate, Date updateDate,
         EnumOrderStatus enumOrderStatus) {
         super(id);
         this.customerId = customerId;
-        this.code = code;
         this.orderedBooks = orderedBooks;
         this.createDate = createDate;
         this.updateDate = updateDate;
@@ -90,11 +86,4 @@ public class OrderDTO extends BaseDTO {
         this.enumOrderStatus = enumOrderStatus;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

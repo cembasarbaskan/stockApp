@@ -17,7 +17,6 @@ import com.idea.readingisgood.domain.response.BaseResponse;
 import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.mapper.CustomerMapper;
 import com.idea.readingisgood.repository.CustomerRepository;
-import com.idea.readingisgood.validator.SavingItemIdCheck;
 
 @Service
 public class CustomerService extends BaseService<Customer, CustomerDTO> {
@@ -56,9 +55,9 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
     }
 
     @Override
-    public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Customer.class) CustomerDTO customerDTO) {
+    public ResponseEntity<BaseResponse> save(CustomerDTO customerDTO) {
         logger.info("[CustomerService.save] called with customer: {}", customerDTO);
-        Customer customer = customerRepository.save(customerMapper.dtoToEntity(customerDTO));
+        Customer customer = customerRepository.saveAndFlush(customerMapper.dtoToEntity(customerDTO));
         return ResponseEntity.ok(SuccessResponse.<CustomerDTO>builder().data(customerMapper.entityToDTO(customer))
             .status(HttpStatus.OK)
             .build());
@@ -72,7 +71,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTO> {
             throw new NoSuchElementException("There was not any matched customer for update");
         }
 
-        customer = customerRepository.save(customerMapper.dtoToEntity(dto));
+        customer = customerRepository.saveAndFlush(customerMapper.dtoToEntity(dto));
         return ResponseEntity.ok(SuccessResponse.builder().data(customerMapper.entityToDTO(customer)).build());
     }
 }

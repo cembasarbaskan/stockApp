@@ -60,11 +60,11 @@ public class StockService extends BaseService<Stock, StockDTO> {
     @Override
     public ResponseEntity<BaseResponse> save(StockDTO dto) {
         logger.info("[StockService.save] called with stock: {}", dto);
-        Stock stock = stockRepository.findByBookId(dto.getBookId());
+        Stock stock = stockRepository.findByBook_Id(dto.getBookId());
         if (stock != null) {
             throw new EntityExistsException("Same stock exist");
         }
-        stock = stockRepository.save(stockMapper.dtoToEntity(dto));
+        stock = stockRepository.saveAndFlush(stockMapper.dtoToEntity(dto));
         return ResponseEntity.ok(SuccessResponse.<StockDTO>builder().data(stockMapper.entityToDTO(stock)).build());
     }
 
@@ -75,7 +75,7 @@ public class StockService extends BaseService<Stock, StockDTO> {
         if (optionalStock.isEmpty()) {
             throw new NoSuchElementException("There is no stock for update");
         }
-        Stock updatedStock = stockRepository.save(stockMapper.dtoToEntity(dto));
+        Stock updatedStock = stockRepository.saveAndFlush(stockMapper.dtoToEntity(dto));
         return ResponseEntity.ok(
             SuccessResponse.<StockDTO>builder().data(stockMapper.entityToDTO(updatedStock)).build());
     }
@@ -88,7 +88,7 @@ public class StockService extends BaseService<Stock, StockDTO> {
 
     protected Stock findStockWithBookId(String bookId) {
         logger.info("[StockService.findStockWithBookId] called with bookId: {}", bookId);
-        return stockRepository.findByBookId(bookId);
+        return stockRepository.findByBook_Id(bookId);
     }
 
 }

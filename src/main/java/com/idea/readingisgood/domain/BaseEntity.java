@@ -23,7 +23,6 @@ public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @JsonIgnore
     protected String id;
 
     @JsonIgnore

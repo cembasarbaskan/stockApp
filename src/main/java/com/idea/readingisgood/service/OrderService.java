@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,26 +24,27 @@ import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.dto.OrderDTO;
 import com.idea.readingisgood.dto.OrderedBookDTO;
 import com.idea.readingisgood.mapper.OrderMapper;
-import com.idea.readingisgood.repository.BookRepository;
 import com.idea.readingisgood.repository.CustomerRepository;
 import com.idea.readingisgood.repository.OrderRepository;
-import com.idea.readingisgood.validator.SavingItemIdCheck;
+import com.idea.readingisgood.repository.OrderedBookRepository;
 
 @Validated
 @Service
 public class OrderService extends BaseService<Order, OrderDTO> {
-    private final static Logger logger = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
     private final StockService stockService;
     private final CustomerRepository customerRepository;
+    private final OrderedBookRepository orderedBookRepository;
 
     public OrderService(OrderMapper orderMapper, OrderRepository orderRepository, StockService stockService,
-        CustomerRepository customerRepository) {
+        CustomerRepository customerRepository, OrderedBookRepository orderedBookRepository) {
         this.orderMapper = orderMapper;
         this.orderRepository = orderRepository;
         this.stockService = stockService;
         this.customerRepository = customerRepository;
+        this.orderedBookRepository = orderedBookRepository;
 
     }
 
@@ -63,6 +65,7 @@ public class OrderService extends BaseService<Order, OrderDTO> {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<BaseResponse> deleteOneById(String id) {
         logger.info("[OrderService.deleteOneById] called with customerId: {}", id);
         try {
@@ -76,24 +79,24 @@ public class OrderService extends BaseService<Order, OrderDTO> {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Order.class) OrderDTO orderDTO) {
+    public ResponseEntity<BaseResponse> save(OrderDTO orderDTO) {
         logger.info("[OrderService.save] called with order: {}", orderDTO);
         checkAndUpdateStockWithNewOrder(orderDTO);
-        Order savedOrder = orderRepository.save(orderMapper.prepareOrderDTOForCreation(orderDTO));
+        Order savedOrder = orderRepository.saveAndFlush(orderMapper.prepareOrderDTOForCreation(orderDTO));
         return ResponseEntity.ok(SuccessResponse.<OrderDTO>builder().data(orderMapper.entityToDTO(savedOrder))
             .status(HttpStatus.OK)
             .build());
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<BaseResponse> update(OrderDTO dto) {
         logger.info("[OrderService.update] called with orderDTO: {}", dto);
-        Optional<Order> order = orderRepository.findById(dto.getId());
-        if (order.isEmpty()) {
+        if (orderRepository.findById(dto.getId()).isEmpty()) {
             throw new NoSuchElementException("There is no order for update");
         }
-        OrderDTO savedOrder = orderMapper.entityToDTO(orderRepository.save(orderMapper.dtoToEntity(dto)));
-        return ResponseEntity.ok(SuccessResponse.<OrderDTO>builder().data(savedOrder).build());
+        orderRepository.saveAndFlush(orderMapper.dtoToEntity(dto));
+        return ResponseEntity.ok(SuccessResponse.<String>builder().data("update successful").build());
     }
 
     public ResponseEntity<BaseResponse> fetchWithCustomer(String customerId) {

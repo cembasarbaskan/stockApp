@@ -1,10 +1,17 @@
 package com.idea.readingisgood.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.idea.readingisgood.domain.BaseEntity;
 
 public class OrderedBookDTO extends BaseEntity {
+    @NotNull
     private String bookId;
+
+    @NotNull
     private String orderId;
+
+    @NotNull
     private Integer piece;
 
     public OrderedBookDTO() {

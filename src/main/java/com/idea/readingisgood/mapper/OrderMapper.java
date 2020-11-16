@@ -35,7 +35,7 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
     public OrderDTO entityToDTO(Order entity) {
         Set<OrderedBookDTO> orderedBookDTOS =
             entity.getOrderedBooks().stream().map(orderedBookMapper::entityToDTO).collect(Collectors.toSet());
-        return new OrderDTO(entity.getId(), entity.getCustomer().getId(), "entity.getCode()", orderedBookDTOS,
+        return new OrderDTO(entity.getId(), entity.getCustomer().getId(), orderedBookDTOS,
             entity.getCreateTime(), entity.getChangeTime(), entity.getStatus());
     }
 

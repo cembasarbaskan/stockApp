@@ -1,6 +1,5 @@
 package com.idea.readingisgood.domain;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 

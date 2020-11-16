@@ -1,11 +1,9 @@
 package com.idea.readingisgood.controller;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idea.readingisgood.dto.StockDTO;
 import com.idea.readingisgood.domain.response.BaseResponse;
+import com.idea.readingisgood.dto.StockDTO;
 import com.idea.readingisgood.service.StockService;
 
 @RestController
 @RequestMapping("/stock")
 public class StockController {
     private final StockService stockService;
+
     public StockController(StockService stockService) {
         this.stockService = stockService;
     }
@@ -38,8 +37,9 @@ public class StockController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<BaseResponse> getListStock(@RequestParam(name = "startIndex") Integer startIndex,
-        @RequestParam(name = "size") @Size(min = 1, max = 10) Integer size) {
+    public ResponseEntity<BaseResponse> getListStock(
+        @RequestParam(name = "startIndex", required = false, defaultValue = "0") Integer startIndex,
+        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         return stockService.fetchAll(startIndex, size);
     }
 
@@ -51,6 +51,11 @@ public class StockController {
     @PutMapping
     public ResponseEntity<BaseResponse> updateStock(@RequestBody @Valid StockDTO stockDTO) {
         return stockService.update(stockDTO);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse> deleteStock(@PathVariable String stockId) {
+        return stockService.deleteOneById(stockId);
     }
 
 }

@@ -16,7 +16,6 @@ import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.dto.BookDTO;
 import com.idea.readingisgood.mapper.BookMapper;
 import com.idea.readingisgood.repository.BookRepository;
-import com.idea.readingisgood.validator.SavingItemIdCheck;
 
 @Service
 public class BookService extends BaseService<Book, BookDTO> {
@@ -54,9 +53,9 @@ public class BookService extends BaseService<Book, BookDTO> {
     }
 
     @Override
-    public ResponseEntity<BaseResponse> save(@SavingItemIdCheck(propName = Book.class) BookDTO bookDTO) {
+    public ResponseEntity<BaseResponse> save(BookDTO bookDTO) {
         logger.info("[bookService.save] called with book: {}", bookDTO);
-        Book book = bookRepository.save(bookMapper.dtoToEntity(bookDTO));
+        Book book = bookRepository.saveAndFlush(bookMapper.dtoToEntity(bookDTO));
         return ResponseEntity.ok(
             SuccessResponse.<BookDTO>builder().data(bookMapper.entityToDTO(book)).status(HttpStatus.OK).build());
     }
@@ -64,7 +63,7 @@ public class BookService extends BaseService<Book, BookDTO> {
     @Override
     public ResponseEntity<BaseResponse> update(BookDTO bookDTO) {
         logger.info("[bookService.update] called with book: {}", bookDTO);
-        Book savedBook = bookRepository.save(bookMapper.dtoToEntity(bookDTO));
+        Book savedBook = bookRepository.saveAndFlush(bookMapper.dtoToEntity(bookDTO));
         return ResponseEntity.ok(SuccessResponse.<BookDTO>builder().data(bookMapper.entityToDTO(savedBook)).build());
     }
 }

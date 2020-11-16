@@ -1,13 +1,17 @@
 package com.idea.readingisgood.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +41,8 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<BaseResponse> getListCustomer(@RequestParam(name = "startIndex") Integer startIndex,
-        @RequestParam(name = "size") @Size(min = 1, max = 10) Integer size) {
+    public ResponseEntity<BaseResponse> getListCustomer(@RequestParam(name = "startIndex",required = false,defaultValue = "0") Integer startIndex,
+        @RequestParam(name = "size",required = false,defaultValue = "5") Integer size) {
         return customerService.fetchAll(startIndex, size);
     }
 
@@ -50,5 +54,10 @@ public class CustomerController {
     @PutMapping
     public ResponseEntity<BaseResponse> updateCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         return customerService.update(customerDTO);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse> deleteCustomer(@PathVariable String customerId) {
+        return customerService.deleteOneById(customerId);
     }
 }

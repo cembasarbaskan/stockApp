@@ -1,4 +1,4 @@
-package com.idea.readingisgood;
+package com.idea.readingisgood.repository;
 
 import java.util.HashSet;
 
@@ -9,16 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.idea.readingisgood.AbstractTest;
 import com.idea.readingisgood.domain.Book;
 import com.idea.readingisgood.domain.Customer;
 import com.idea.readingisgood.domain.Order;
 import com.idea.readingisgood.domain.OrderedBook;
 import com.idea.readingisgood.domain.Stock;
 import com.idea.readingisgood.domain.enums.EnumOrderStatus;
-import com.idea.readingisgood.repository.BookRepository;
-import com.idea.readingisgood.repository.CustomerRepository;
-import com.idea.readingisgood.repository.OrderRepository;
-import com.idea.readingisgood.repository.StockRepository;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -65,10 +62,10 @@ public class OrderRepositoryTest extends AbstractTest {
     void deleteTest() {
         Order check = new Order();
         check = fillAndSaveOrder(check);
-        orderRepository.save(check);
-
-        Order mate = orderRepository.getOne(check.getId());
-        assert mate.getStatus().equals(EnumOrderStatus.SHIPPED);
+        check = orderRepository.save(check);
+        String id = check.getId();
+        orderRepository.deleteById(id);
+        assert orderRepository.findById(id).isEmpty();
     }
 
     private Order fillAndSaveOrder(Order order) {
