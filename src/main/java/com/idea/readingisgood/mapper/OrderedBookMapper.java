@@ -17,13 +17,11 @@ import com.idea.readingisgood.repository.OrderRepository;
 public class OrderedBookMapper implements BaseMapper<OrderedBookDTO, OrderedBook> {
     private final BookRepository bookRepository;
     private final OrderRepository orderRepository;
-    private final CustomerRepository customerRepository;
 
     public OrderedBookMapper(BookRepository bookRepository, OrderRepository orderRepository,
         CustomerRepository customerRepository) {
         this.bookRepository = bookRepository;
         this.orderRepository = orderRepository;
-        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -35,12 +33,12 @@ public class OrderedBookMapper implements BaseMapper<OrderedBookDTO, OrderedBook
     @Override
     public OrderedBook dtoToEntity(OrderedBookDTO dto) {
         Optional<Book> optionalBook = bookRepository.findById(dto.getBookId());
-        Order order = orderRepository.getOne(dto.getOrderCode());
-        if (optionalBook.isEmpty() || order == null) {
+        Optional<Order> optionalOrder = orderRepository.findById(dto.getOrderId());
+        if (optionalBook.isEmpty() || optionalOrder.isEmpty()) {
             throw new NoSuchElementException("The book in the order was not matched");
         }
 
-        return new OrderedBook(optionalBook.get(), order, dto.getPiece());
+        return new OrderedBook(optionalBook.get(), optionalOrder.get(), dto.getPiece());
     }
 
 }

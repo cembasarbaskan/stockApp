@@ -4,22 +4,22 @@ import com.idea.readingisgood.entity.BaseEntity;
 
 public class OrderedBookDTO extends BaseEntity {
     private String bookId;
-    private String orderCode;
+    private String orderId;
     private Integer piece;
 
     public OrderedBookDTO() {
     }
 
-    public OrderedBookDTO(String bookId, String orderCode, Integer piece) {
+    public OrderedBookDTO(String bookId, String orderId, Integer piece) {
         this.bookId = bookId;
-        this.orderCode = orderCode;
+        this.orderId = orderId;
         this.piece = piece;
     }
 
-    public OrderedBookDTO(String id, String bookId, String orderCode, Integer piece) {
+    public OrderedBookDTO(String id, String bookId, String orderId, Integer piece) {
         super(id);
         this.bookId = bookId;
-        this.orderCode = orderCode;
+        this.orderId = orderId;
         this.piece = piece;
     }
 
@@ -31,12 +31,12 @@ public class OrderedBookDTO extends BaseEntity {
         this.bookId = bookId;
     }
 
-    public String getOrderCode() {
-        return orderCode;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderCode(String orderCode) {
-        this.orderCode = orderCode;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getPiece() {

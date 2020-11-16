@@ -42,7 +42,6 @@ create table book_genre
 create table order_table
 (
     id          varchar(255) primary key,
---     code        varchar(255) not null unique,
     customer_id varchar(255) not null,
     status      varchar(255) not null,
 
@@ -58,7 +57,6 @@ create table ordered_book
 (
     id          varchar(255) primary key,
     book_id     VARCHAR(255) not null,
---     order_code  varchar(255) not null,
     order_id    varchar(255) not null,
     piece       integer      not null default 0,
 

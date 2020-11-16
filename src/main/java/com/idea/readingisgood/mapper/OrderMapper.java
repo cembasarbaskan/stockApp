@@ -42,7 +42,7 @@ public class OrderMapper implements BaseMapper<OrderDTO, Order> {
     public Order dtoToEntity(OrderDTO dto) {
         List<OrderedBook> orderedBooks =
             dto.getOrderedBooks().stream().map(orderedBookMapper::dtoToEntity).collect(Collectors.toList());
-        return new Order(dto.getId(), dto.getCode(), customerRepository.getOne(dto.getCustomerId()), orderedBooks, dto.getEnumOrderStatus());
+        return new Order(dto.getId(), customerRepository.getOne(dto.getCustomerId()), orderedBooks, dto.getEnumOrderStatus());
     }
 
 
