@@ -17,6 +17,9 @@ import com.idea.readingisgood.domain.response.BaseResponse;
 import com.idea.readingisgood.dto.StockDTO;
 import com.idea.readingisgood.service.StockService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "stock")
 @RestController
 @RequestMapping("/stock")
 public class StockController {
