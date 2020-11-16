@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import com.idea.readingisgood.AbstractTest;
+import com.idea.readingisgood.base.AbstractTest;
 import com.idea.readingisgood.domain.response.BaseResponse;
 import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.dto.BookDTO;

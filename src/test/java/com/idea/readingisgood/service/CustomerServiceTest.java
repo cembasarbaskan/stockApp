@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.idea.readingisgood.AbstractTest;
+import com.idea.readingisgood.base.AbstractTest;
 import com.idea.readingisgood.domain.response.BaseResponse;
 import com.idea.readingisgood.domain.response.SuccessResponse;
 import com.idea.readingisgood.dto.CustomerDTO;

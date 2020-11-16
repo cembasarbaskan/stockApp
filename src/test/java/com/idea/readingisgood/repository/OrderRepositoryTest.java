@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.idea.readingisgood.AbstractTest;
+import com.idea.readingisgood.base.AbstractTest;
 import com.idea.readingisgood.domain.Book;
 import com.idea.readingisgood.domain.Customer;
 import com.idea.readingisgood.domain.Order;

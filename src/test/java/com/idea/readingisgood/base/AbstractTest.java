@@ -1,4 +1,4 @@
-package com.idea.readingisgood;
+package com.idea.readingisgood.base;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Set;

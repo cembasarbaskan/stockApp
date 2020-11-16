@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import com.idea.readingisgood.AbstractTest;
+import com.idea.readingisgood.base.AbstractTest;
 import com.idea.readingisgood.domain.Book;
 import com.idea.readingisgood.repository.BookRepository;
 
